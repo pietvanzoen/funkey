@@ -1,5 +1,7 @@
 # funkey
 
+## This project is a work in progress and not ready for use.
+
 [![CircleCI](https://img.shields.io/circleci/project/pietvanzoen/funkey/master.svg)](https://circleci.com/gh/pietvanzoen/funkey/tree/master)
 
 A functional keyboard event handler.
