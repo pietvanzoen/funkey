@@ -1,3 +1,4 @@
+var path = require('path');
 module.exports = function(config) {
   config.set({
     basePath: '',
@@ -9,7 +10,13 @@ module.exports = function(config) {
     ],
     exclude: [],
     preprocessors: {},
-    reporters: ['progress'],
+    reporters: [
+      'progress',
+      'junit'
+    ],
+    junitReporter: {
+      outputDir: path.resolve((process.env.CIRCLE_TEST_REPORTS || './_test-results'), 'karma')
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
