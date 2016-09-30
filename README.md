@@ -1,4 +1,7 @@
 # funkey
+
+[![CircleCI](https://img.shields.io/circleci/project/pietvanzoen/funkey/master.svg)](https://circleci.com/gh/pietvanzoen/funkey/tree/master)
+
 A functional keyboard event handler.
 
 ## Usage
