@@ -1,6 +1,10 @@
 {
   "extends": "google",
   "rules": {
-    "padded-blocks": 0
+    "padded-blocks": 0,
+    "max-len": [
+      "warn",
+      120
+    ]
   }
 }
