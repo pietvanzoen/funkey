@@ -1,3 +1,6 @@
 {
-  "extends": "google"
+  "extends": "google",
+  "rules": {
+    "padded-blocks": 0
+  }
 }
