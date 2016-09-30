@@ -5,7 +5,7 @@
   "main": "dist/funkey.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "karma start --singlerun",
+    "test": "karma start --single-run",
     "test:watch": "karma start"
   },
   "repository": {
