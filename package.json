@@ -14,7 +14,8 @@
     "posttest": "npm run lint",
     "test": "karma start --single-run",
     "test:watch": "karma start",
-    "build": "scripts/build.js"
+    "build": "scripts/build.js",
+    "preinstall": "npm prune"
   },
   "repository": {
     "type": "git",
