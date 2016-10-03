@@ -1,15 +1,14 @@
+/* eslint-env node */
 var path = require('path');
+var srcFiles = require('./package.json').config.srcFiles;
 module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
-    files: [
-      'src/*.js',
-      'test/*.js',
-      'test/*.spec.js'
-    ],
-    exclude: [],
-    preprocessors: {},
+    files: srcFiles.concat([
+      'test/matchers.js',
+      'test/funkey.spec.js'
+    ]),
     reporters: [
       'progress',
       'junit'

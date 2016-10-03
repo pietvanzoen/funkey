@@ -5,6 +5,7 @@
     "max-len": [
       "warn",
       120
-    ]
+    ],
+    "require-jsdoc": 0
   }
 }

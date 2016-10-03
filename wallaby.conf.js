@@ -1,11 +1,12 @@
+/* eslint-env node */
+var srcFiles = require('./package.json').config.srcFiles;
 module.exports = function(wallaby) {
   return {
-    files: [
-      'src/**/*.js',
+    files: srcFiles.concat([
       'test/matchers.js'
-    ],
+    ]),
     tests: [
-      'test/**/*.spec.js'
+      'test/funkey.spec.js'
     ]
   };
 };
