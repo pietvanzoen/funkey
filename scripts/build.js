@@ -2,10 +2,11 @@
 
 var buildify = require('buildify');
 var _ = require('lodash');
-var fixIife = _.partialRight(_.replace, ';\n(function', ';(function');
-var beautify = _.partialRight(require('js-beautify'), {indent_size: 2}); // eslint-disable-line camelcase
-var formatDist = _.flow(beautify, fixIife);
+
 var removeComments = _.partialRight(_.replace, /\s\/[*\/][^\*].*/g, '');
+var beautify = _.partialRight(require('js-beautify'), {indent_size: 2}); // eslint-disable-line camelcase
+var fixIife = _.partialRight(_.replace, ';\n(function', ';(function');
+var formatDist = _.flow(removeComments, beautify, fixIife);
 
 var pkg = require('../package.json');
 var srcFiles = pkg.config.srcFiles;
@@ -18,7 +19,7 @@ var licenseOptions = {
 buildify()
   .concat(srcFiles)
   .wrap('scripts/umd.tmpl.js')
-  .perform(_.flow(removeComments, formatDist))
+  .perform(formatDist)
   .wrap(licenseTemplate, licenseOptions)
   .save('dist/funkey.js')
   .uglify()
