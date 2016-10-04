@@ -160,4 +160,57 @@ describe('funkey', function() {
     }).toThrowError(/invalid keystring/i);
   });
 
+  describe('currying', function() {
+    beforeEach(function() {
+      this.event = {keyCode: funkey.KEY_CODES.enter, metaKey: true};
+      this.keyString = 'super+enter';
+      this.spy = jasmine.createSpy();
+    });
+    it('is self currying', function() {
+
+      funkey(this.event)(this.keyString)(this.spy);
+      expect(this.spy).toHaveBeenCalled();
+
+      this.spy.calls.reset();
+
+      funkey(this.event, this.keyString)(this.spy);
+      expect(this.spy).toHaveBeenCalled();
+
+      this.spy.calls.reset();
+
+      funkey(this.event)(this.keyString, this.spy);
+      expect(this.spy).toHaveBeenCalled();
+    });
+
+    it('event can be invoked in any position', function() {
+      funkey(this.keyString)(this.event)(this.spy);
+      expect(this.spy).toHaveBeenCalled();
+
+      this.spy.calls.reset();
+
+      funkey(this.keyString)(this.spy)(this.event);
+      expect(this.spy).toHaveBeenCalled();
+    });
+  });
+
+  it('throws an error when not given the correct arguments', function() {
+    expect(function() {
+      funkey('super+a', 'super+a', ['baz']);
+    }).toThrowError(/invalid call signature/i);
+  });
+
+  it('returns the result of the callback', function() {
+    var result = funkey({keyCode: funkey.KEY_CODES.enter}, 'enter', function() {
+      return 'callback return value';
+    });
+    expect(result).toBe('callback return value');
+  });
+
+  it('the event object is passed to the callback', function() {
+    var event = {keyCode: funkey.KEY_CODES.enter};
+    funkey(event, 'enter', function(e) {
+      expect(e).toBe(event);
+    });
+  });
+
 });

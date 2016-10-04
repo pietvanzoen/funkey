@@ -1,19 +1,54 @@
 /* global KEY_CODES */
 
-var modifierKeys = {
+var MODIFIER_KEYS = {
   shift: 'shiftKey',
   alt: 'altKey',
   super: 'metaKey',
   ctrl: 'ctrlKey'
 };
 
+var __slice = Array.prototype.slice;
+
 /**
  * Funkey
  * @param {KeyboardEvent} event The event to test.
  * @param {String} keyString The keyboard string to match.
  * @param {Function} callback Function to invoke on event/keystring match.
+ * @return {*} returns result of callback if invoked.
  */
 function funkey(event, keyString, callback) {
+  var args = __slice.call(arguments);
+  if (args.length === funkey.length) {
+    return _funkey.apply(null, args);
+  }
+  return function() {
+    var newArgs = __slice.call(arguments);
+    return funkey.apply(null, args.concat(newArgs));
+  };
+}
+
+function _funkey() {
+  var event;
+  var keyString;
+  var callback;
+
+  var args = __slice.call(arguments);
+  for (var i = 0; i < args.length; i++) {
+    var arg = args[i];
+    if (typeof arg === 'object') {
+      event = arg;
+      break;
+    }
+  }
+  var eventArgIndex = args.indexOf(event);
+  args.splice(eventArgIndex, 1);
+  keyString = args[0];
+  callback = args[1];
+
+  if (typeof event !== 'object' || typeof keyString !== 'string' || typeof callback !== 'function') {
+    throw new Error('[funkey] Invalid call signature. \n' +
+      'funkey must be given an event object, a keyString, and a callback function.');
+  }
 
   var eventMatch = {};
 
@@ -25,12 +60,12 @@ function funkey(event, keyString, callback) {
     if (keyCode) {
       eventMatch.keyCode = keyCode;
     }
-    var modifier = modifierKeys[keys[index]];
+    var modifier = MODIFIER_KEYS[keys[index]];
     if (modifier) {
       eventMatch[modifier] = true;
     }
     if (!keyCode && !modifier) {
-      throw new Error('[funkey] invalid keyString "' + keyString + '"');
+      throw new Error('[funkey] Invalid keyString "' + keyString + '"');
     }
   }
 
@@ -43,7 +78,7 @@ function funkey(event, keyString, callback) {
     }
   }
 
-  callback();
+  return callback(event);
 
 }
 
