@@ -19,11 +19,11 @@ var __slice = Array.prototype.slice;
 function funkey(event, keyString, callback) {
   var args = __slice.call(arguments);
   if (args.length === funkey.length) {
-    return _funkey.apply(null, args);
+    return _funkey.apply(this, args);
   }
   return function() {
     var newArgs = __slice.call(arguments);
-    return funkey.apply(null, args.concat(newArgs));
+    return funkey.apply(this, args.concat(newArgs));
   };
 }
 
@@ -78,7 +78,7 @@ function _funkey() {
     }
   }
 
-  return callback(event);
+  return callback.call(this, event);
 
 }
 

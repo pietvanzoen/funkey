@@ -213,4 +213,16 @@ describe('funkey', function() {
     });
   });
 
+  it('binds `this` of created function to callback', function() {
+    var obj = {
+      doSomething: function() {
+        expect(this).toBe(obj);
+      },
+      onEnter: funkey('enter', function() {
+        this.doSomething();
+      })
+    };
+    obj.onEnter({keyCode: funkey.KEY_CODES.enter});
+  });
+
 });
