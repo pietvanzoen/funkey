@@ -225,4 +225,10 @@ describe('funkey', function() {
     obj.onEnter({keyCode: funkey.KEY_CODES.enter});
   });
 
+  it('ignores additional arguments', function() {
+    var spy = jasmine.createSpy();
+    funkey({keyCode: funkey.KEY_CODES.enter}, 'enter', spy, 'foo', 'bar');
+    expect(spy).toHaveBeenCalled();
+  });
+
 });

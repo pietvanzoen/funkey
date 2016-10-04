@@ -17,8 +17,9 @@ var __slice = Array.prototype.slice;
  * @return {*} returns result of callback if invoked.
  */
 function funkey(event, keyString, callback) {
-  var args = __slice.call(arguments);
-  if (args.length === funkey.length) {
+  var arity = funkey.length;
+  var args = __slice.call(arguments, 0, arity);
+  if (args.length === arity) {
     return _funkey.apply(this, args);
   }
   return function() {
