@@ -1,4 +1,4 @@
-var KEYCODES = { // eslint-disable-line no-unused-vars
+var KEY_CODES = { // eslint-disable-line no-unused-vars
   'tab': 9,
   'backspace': 8,
   'enter': 13,

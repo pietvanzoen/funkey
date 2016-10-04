@@ -14,9 +14,6 @@ describe('funkey', function() {
     expect({keyCode: 8}).toTriggerKeyString('backspace');
     expect({keyCode: 9}).toTriggerKeyString('tab');
     expect({keyCode: 13}).toTriggerKeyString('enter');
-    expect({keyCode: 16}).toTriggerKeyString('shift');
-    expect({keyCode: 17}).toTriggerKeyString('ctrl');
-    expect({keyCode: 18}).toTriggerKeyString('alt');
     expect({keyCode: 19}).toTriggerKeyString('pause');
     expect({keyCode: 20}).toTriggerKeyString('capslock');
     expect({keyCode: 27}).toTriggerKeyString('escape');
@@ -122,6 +119,45 @@ describe('funkey', function() {
     expect({keyCode: 221}).toTriggerKeyString(']');
     expect({keyCode: 222}).toTriggerKeyString('singlequote');
     expect({keyCode: 222}).toTriggerKeyString('\'');
+  });
+
+  it('handles single modifier keys', function() {
+    expect({keyCode: 16, shiftKey: true}).toTriggerKeyString('shift');
+    expect({keyCode: 17, ctrlKey: true}).toTriggerKeyString('ctrl');
+    expect({keyCode: 18, altKey: true}).toTriggerKeyString('alt');
+  });
+
+  it('handles "super" single key', function() {
+    expect({keyCode: funkey.KEY_CODES.superright, metaKey: true}).toTriggerKeyString('super');
+    expect({keyCode: funkey.KEY_CODES.superleft, metaKey: true}).toTriggerKeyString('super');
+  });
+
+  it('handles modifier key combos', function() {
+    var enter = funkey.KEY_CODES.enter;
+    expect({keyCode: enter, shiftKey: true}).toTriggerKeyString('shift+enter');
+    expect({keyCode: enter, shiftKey: false}).not.toTriggerKeyString('shift+enter');
+    expect({keyCode: enter, ctrlKey: true}).toTriggerKeyString('ctrl+enter');
+    expect({keyCode: enter, ctrlKey: false}).not.toTriggerKeyString('ctrl+enter');
+    expect({keyCode: enter, metaKey: true}).toTriggerKeyString('super+enter');
+    expect({keyCode: enter, metaKey: false}).not.toTriggerKeyString('super+enter');
+    expect({keyCode: enter, altKey: true}).toTriggerKeyString('alt+enter');
+    expect({keyCode: enter, altKey: false}).not.toTriggerKeyString('alt+enter');
+  });
+
+  it('handles multiple modifier combos', function() {
+    var dkey = funkey.KEY_CODES.d;
+    expect({keyCode: dkey, altKey: true, metaKey: true}).toTriggerKeyString('super+alt+d');
+    expect({keyCode: dkey, altKey: true, metaKey: true}).not.toTriggerKeyString('super+shift+d');
+    expect({keyCode: dkey, shiftKey: true, metaKey: true}).toTriggerKeyString('shift+super+d');
+    expect({keyCode: dkey, shiftKey: true, metaKey: true}).not.toTriggerKeyString('shift+alt+d');
+    expect({keyCode: dkey, ctrlKey: true, metaKey: true}).toTriggerKeyString('ctrl+super+d');
+  });
+
+  it('throws error with invalid keystring', function() {
+    expect(function() {
+      funkey({}, 'foo+bar', function() {
+      });
+    }).toThrowError(/invalid keystring/i);
   });
 
 });
