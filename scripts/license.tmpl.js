@@ -4,8 +4,4 @@
  * @version {{version}}
  * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
-{
-  {
-    body
-  }
-}
+{{body}}

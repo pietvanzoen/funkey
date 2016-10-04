@@ -1,11 +1,7 @@
 ;(function() {
   'use strict';
 
-  {
-    {
-      body
-    }
-  }
+  {{body}}
   if (typeof exports === 'object') {
     module.exports = funkey;
   } else if (typeof define === 'function' && define.amd) {
