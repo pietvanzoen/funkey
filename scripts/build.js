@@ -9,7 +9,6 @@ var fixIife = _.partialRight(_.replace, ';\n(function', ';(function');
 var formatDist = _.flow(removeComments, beautify, fixIife);
 
 var pkg = require('../package.json');
-var srcFiles = pkg.config.srcFiles;
 var licenseTemplate = 'scripts/license.tmpl.js';
 var licenseOptions = {
   version: pkg.version,
@@ -17,7 +16,7 @@ var licenseOptions = {
 };
 
 buildify()
-  .concat(srcFiles)
+  .concat(pkg.config.srcFiles)
   .wrap('scripts/umd.tmpl.js')
   .perform(formatDist)
   .wrap(licenseTemplate, licenseOptions)
