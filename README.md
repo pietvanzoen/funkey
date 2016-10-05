@@ -1,22 +1,14 @@
 # funkey
 
-## This project is a work in progress and not ready for use.
-
 [![CircleCI](https://img.shields.io/circleci/project/pietvanzoen/funkey/master.svg)](https://circleci.com/gh/pietvanzoen/funkey/tree/master)
 
-A functional keyboard event handler.
+`funkey` is a self-currying keyboard event handler. You provide the keyboard event, `funkey` provides the fun. 
 
 ## Usage
 
 ```js
 funkey(event, 'super+enter', () => { 
   console.log('super enter pressed!');
-});
-```
-
-```js
-funkey(event, 'super+enter', () => { 
-  return false; // default behaviour prevented
 });
 ```
 
@@ -29,8 +21,6 @@ handleKey('ctrl+l', (event) => {
   /* do other stuff */
 });
 ```
-
-
 
 ```js
 let logMessage = () => console.log('hello world');
@@ -46,3 +36,7 @@ const controller = {
   })
 };
 ```
+
+## TODO
+- [] docs
+- [] support for new preferred keyboard event handling
