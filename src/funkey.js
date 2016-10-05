@@ -8,6 +8,7 @@ var MODIFIER_KEYS = {
 };
 
 var __slice = Array.prototype.slice;
+var FUNKEY_ARITY = funkey.length;
 
 /**
  * Funkey
@@ -17,15 +18,15 @@ var __slice = Array.prototype.slice;
  * @return {*} returns result of callback if invoked.
  */
 function funkey(event, keyString, callback) {
-  var arity = funkey.length;
-  var args = __slice.call(arguments, 0, arity);
-  if (args.length === arity) {
+  var args = __slice.call(arguments, 0, FUNKEY_ARITY);
+  if (args.length === FUNKEY_ARITY) {
     return _funkey.apply(this, args);
   }
-  return function() {
+  var remainArgs = FUNKEY_ARITY - args.length;
+  return arity(remainArgs, function() {
     var newArgs = __slice.call(arguments);
     return funkey.apply(this, args.concat(newArgs));
-  };
+  });
 }
 
 function _funkey() {
@@ -81,6 +82,21 @@ function _funkey() {
 
   return callback.call(this, event);
 
+}
+
+function arity(n, fn) {
+  switch (n) {
+    case 1: return function(a1) {
+      return fn.apply(this, arguments);
+    };
+    case 2: return function(a1, a2) {
+      return fn.apply(this, arguments);
+    };
+    case 3: return function(a1, a2, a3) {
+      return fn.apply(this, arguments);
+    };
+    default: throw new Error('Arity ' + n + ' not supported.');
+  }
 }
 
 funkey.KEY_CODES = KEY_CODES;

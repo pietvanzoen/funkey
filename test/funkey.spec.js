@@ -191,6 +191,15 @@ describe('funkey', function() {
       funkey(this.keyString)(this.spy)(this.event);
       expect(this.spy).toHaveBeenCalled();
     });
+
+    it('returns correct arity for each returned function', function() {
+      var onKey = funkey();
+      expect(onKey.length).toBe(3);
+      onKey = onKey(this.event);
+      expect(onKey.length).toBe(2);
+      onKey = onKey(this.keyString);
+      expect(onKey.length).toBe(1);
+    });
   });
 
   it('throws an error when not given the correct arguments', function() {
