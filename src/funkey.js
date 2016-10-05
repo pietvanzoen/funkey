@@ -1,4 +1,6 @@
-/* global KEY_CODES */
+/* global initKeyCodes */
+
+var KEY_CODES = initKeyCodes();
 
 var MODIFIER_KEYS = {
   shift: 'shiftKey',
@@ -19,69 +21,81 @@ var FUNKEY_ARITY = funkey.length;
  */
 function funkey(event, keyString, callback) {
   var args = __slice.call(arguments, 0, FUNKEY_ARITY);
-  if (args.length === FUNKEY_ARITY) {
-    return _funkey.apply(this, args);
+  var argsLength = args.length;
+  if (argsLength === FUNKEY_ARITY) {
+    return runFunkey.apply(this, args);
   }
-  var remainArgs = FUNKEY_ARITY - args.length;
-  return arity(remainArgs, function() {
-    var newArgs = __slice.call(arguments);
-    return funkey.apply(this, args.concat(newArgs));
+  return arity(FUNKEY_ARITY - argsLength, function() {
+    return funkey.apply(this, args.concat(__slice.call(arguments)));
   });
 }
 
-function _funkey() {
-  var event;
-  var keyString;
-  var callback;
+var runFunkey = parseArgs(function(event, keyString, callback) {
+  if (objectContains(eventFromKeyString(keyString), event)) {
+    return callback.call(this, event);
+  }
+});
 
-  var args = __slice.call(arguments);
-  for (var i = 0; i < args.length; i++) {
-    var arg = args[i];
-    if (typeof arg === 'object') {
-      event = arg;
-      break;
+function objectContains(matchObject, actualObject) {
+  for (var prop in matchObject) {
+    if (!matchObject.hasOwnProperty(prop)) {
+      continue;
+    }
+    if (matchObject[prop] !== actualObject[prop]) {
+      return false;
     }
   }
-  var eventArgIndex = args.indexOf(event);
-  args.splice(eventArgIndex, 1);
-  keyString = args[0];
-  callback = args[1];
+  return true;
+}
 
-  if (typeof event !== 'object' || typeof keyString !== 'string' || typeof callback !== 'function') {
-    throw new Error('[funkey] Invalid call signature. \n' +
-      'funkey must be given an event object, a keyString, and a callback function.');
-  }
-
-  var eventMatch = {};
-
+function eventFromKeyString(keyString) {
+  var event = {};
   var keys = keyString.split('+');
-  var length = keys.length;
-  var index = -1;
-  while (++index < length) {
-    var keyCode = KEY_CODES[keys[index]];
+  each(function(key) {
+    var keyCode = KEY_CODES[key];
     if (keyCode) {
-      eventMatch.keyCode = keyCode;
+      event.keyCode = keyCode;
     }
-    var modifier = MODIFIER_KEYS[keys[index]];
+    var modifier = MODIFIER_KEYS[key];
     if (modifier) {
-      eventMatch[modifier] = true;
+      event[modifier] = true;
     }
     if (!keyCode && !modifier) {
       throw new Error('[funkey] Invalid keyString "' + keyString + '"');
     }
-  }
+  }, keys);
+  return event;
+}
 
-  for (var eventProp in eventMatch) {
-    if (!eventMatch.hasOwnProperty(eventProp)) {
-      continue;
+function parseArgs(fn) {
+  return function() {
+    var args = __slice.call(arguments);
+    var event = find(isObject, args);
+    args.splice(args.indexOf(event), 1);
+    var keyString = args[0];
+    var callback = args[1];
+    if (!isObject(event) || typeof keyString !== 'string' || typeof callback !== 'function') {
+      throw new Error('[,funkey] Invalid call signature. \n' +
+        'funkey must be given an event object, a keyString, and a callback function.');
     }
-    if (eventMatch[eventProp] !== event[eventProp]) {
-      return;
-    }
+    return fn.call(this, event, keyString, callback);
+  };
+}
+
+function isObject(item) {
+  return typeof item === 'object';
+}
+
+function find(search, items) {
+  return search(items[0]) ? items[0] : find(search, __slice.call(items, 1));
+}
+
+function each(func, items) {
+  var index = -1;
+  var length = items.length;
+  while (++index < length) {
+    func(items[index], index, items);
   }
-
-  return callback.call(this, event);
-
 }
 
 function arity(n, fn) {
