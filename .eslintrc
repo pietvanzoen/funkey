@@ -4,6 +4,8 @@
     "padded-blocks": 0,
     "max-len": ["warn", 120],
     "require-jsdoc": 0,
-    "camelcase": ["error", {"properties": "never"}]
+    "camelcase": ["error", {"properties": "never"}],
+    "default-case": 0,
+    "no-use-before-define": 0
   }
 }
