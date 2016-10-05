@@ -2,10 +2,8 @@
   "extends": "google",
   "rules": {
     "padded-blocks": 0,
-    "max-len": [
-      "warn",
-      120
-    ],
-    "require-jsdoc": 0
+    "max-len": ["warn", 120],
+    "require-jsdoc": 0,
+    "camelcase": ["error", {"properties": "never"}]
   }
 }
