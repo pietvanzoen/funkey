@@ -9,7 +9,7 @@ function initKeyCodes() { // eslint-disable-line no-unused-vars
     'alt': 18,
     'pause': 19,
     'capslock': 20,
-    'escape': 27, 'esc': 27,
+    'escape': 27,
     'space': 32,
     'pageup': 33,
     'pagedown': 34,
@@ -31,17 +31,17 @@ function initKeyCodes() { // eslint-disable-line no-unused-vars
     'divide': 111,
     'numlock': 144,
     'scrolllock': 145,
-    'semi-colon': 186, ';': 186,
-    'equal': 187, '=': 187,
-    'comma': 188, ',': 188,
-    'dash': 189, '-': 189,
-    'period': 190, '.': 190,
-    'forwardslash': 191, '/': 191,
-    'graveaccent': 192, '`': 192,
-    'openbracket': 219, '[': 219,
-    'backslash': 220, '\\': 220,
-    'closebraket': 221, ']': 221,
-    'singlequote': 222, '\'': 222
+    ';': 186,
+    '=': 187,
+    ',': 188,
+    '-': 189,
+    '.': 190,
+    '/': 191,
+    '`': 192,
+    '[': 219,
+    '\\': 220,
+    ']': 221,
+    '\'': 222
   };
   function addKeyItem(startCode, prefix) {
     return function(val, index) {

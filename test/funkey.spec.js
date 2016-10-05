@@ -17,7 +17,6 @@ describe('funkey', function() {
     expect({keyCode: 19}).toTriggerKeyString('pause');
     expect({keyCode: 20}).toTriggerKeyString('capslock');
     expect({keyCode: 27}).toTriggerKeyString('escape');
-    expect({keyCode: 27}).toTriggerKeyString('esc');
     expect({keyCode: 32}).toTriggerKeyString('space');
     expect({keyCode: 33}).toTriggerKeyString('pageup');
     expect({keyCode: 34}).toTriggerKeyString('pagedown');
@@ -97,27 +96,16 @@ describe('funkey', function() {
     expect({keyCode: 123}).toTriggerKeyString('f12');
     expect({keyCode: 144}).toTriggerKeyString('numlock');
     expect({keyCode: 145}).toTriggerKeyString('scrolllock');
-    expect({keyCode: 186}).toTriggerKeyString('semi-colon');
     expect({keyCode: 186}).toTriggerKeyString(';');
-    expect({keyCode: 187}).toTriggerKeyString('equal');
     expect({keyCode: 187}).toTriggerKeyString('=');
-    expect({keyCode: 188}).toTriggerKeyString('comma');
     expect({keyCode: 188}).toTriggerKeyString(',');
-    expect({keyCode: 189}).toTriggerKeyString('dash');
     expect({keyCode: 189}).toTriggerKeyString('-');
-    expect({keyCode: 190}).toTriggerKeyString('period');
     expect({keyCode: 190}).toTriggerKeyString('.');
-    expect({keyCode: 191}).toTriggerKeyString('forwardslash');
     expect({keyCode: 191}).toTriggerKeyString('/');
-    expect({keyCode: 192}).toTriggerKeyString('graveaccent');
     expect({keyCode: 192}).toTriggerKeyString('`');
-    expect({keyCode: 219}).toTriggerKeyString('openbracket');
     expect({keyCode: 219}).toTriggerKeyString('[');
-    expect({keyCode: 220}).toTriggerKeyString('backslash');
     expect({keyCode: 220}).toTriggerKeyString('\\');
-    expect({keyCode: 221}).toTriggerKeyString('closebraket');
     expect({keyCode: 221}).toTriggerKeyString(']');
-    expect({keyCode: 222}).toTriggerKeyString('singlequote');
     expect({keyCode: 222}).toTriggerKeyString('\'');
   });
 
