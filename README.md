@@ -24,7 +24,7 @@ handleKey('ctrl+l', (event) => {
 
 ```js
 let logMessage = () => console.log('hello world');
-let onEnter = key('enter');
+let onEnter = funkey('enter');
 document.addEventListener('keypress', onEnter(logMessage));
 ```
 
@@ -38,5 +38,5 @@ const controller = {
 ```
 
 ## TODO
-- [] docs
-- [] support for new preferred keyboard event handling
+- [ ] docs
+- [ ] support for new preferred keyboard event handling
