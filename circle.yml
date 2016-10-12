@@ -1,0 +1,8 @@
+dependencies:
+  pre:
+    - ./scripts/install-yarn
+  cache_directories:
+    - ~/.yarn
+    - ~/.yarn-cache
+  override:
+    - yarn install
