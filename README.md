@@ -4,6 +4,17 @@
 
 Funkey is a self-currying keyboard event handler. ~~You provide the keyboard event, `funkey` provides the fun.~~  _[http://bukk.it/hahano.png](http://bukk.it/hahano.png)_
 
+## Download
+
+Direct:
+[Build](https://raw.githubusercontent.com/pietvanzoen/funkey/master/dist/funkey.js) ([minified](https://raw.githubusercontent.com/pietvanzoen/funkey/master/dist/funkey.min.js))
+
+Using npm:
+
+```
+$ npm i --save funkey
+```
+
 ## Basic Usage
 
 ```js
