@@ -50,6 +50,16 @@ document.addEventListener('keypress', (event) => {
 ```
 
 ```js
+var onEnterDoStuff = funkey('enter', () => { /* do stuff */ });
+var onEscapeDoOtherStuff = funkey('escape', () => { /* do other stuff */ });
+
+document.addEventListener('keypress', (event) => {
+  onEnterDoStuff(event);
+  onEscapeDoOtherStuff(event);
+});
+```
+
+```js
 var logMessage = () => console.log('hello world!');
 var onShiftDown = funkey('shift+down');
 document.addEventListener('keypress', onShiftDown(logMessage));
