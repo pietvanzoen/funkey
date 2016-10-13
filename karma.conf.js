@@ -1,14 +1,11 @@
 /* eslint-env node */
 var path = require('path');
-var srcFiles = require('./package.json').config.srcFiles;
+var cfg = require('./package.json').config;
 module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
-    files: srcFiles.concat([
-      'test/matchers.js',
-      'test/funkey.spec.js'
-    ]),
+    files: cfg.srcFiles.concat(cfg.testDepFiles, cfg.testFiles),
     reporters: [
       'progress',
       'junit'

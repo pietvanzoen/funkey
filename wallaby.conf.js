@@ -1,12 +1,8 @@
 /* eslint-env node */
-var srcFiles = require('./package.json').config.srcFiles;
+var cfg = require('./package.json').config;
 module.exports = function(wallaby) {
   return {
-    files: srcFiles.concat([
-      'test/matchers.js'
-    ]),
-    tests: [
-      'test/funkey.spec.js'
-    ]
+    files: cfg.srcFiles.concat(cfg.testDepFiles),
+    tests: cfg.testFiles
   };
 };
