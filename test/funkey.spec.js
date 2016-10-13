@@ -145,7 +145,7 @@ describe('funkey', function() {
     expect(function() {
       funkey({}, 'foo+bar', function() {
       });
-    }).toThrowError(/invalid keystring/i);
+    }).toThrowError(/invalid keyname/i);
   });
 
   describe('currying', function() {
