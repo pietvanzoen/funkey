@@ -53,7 +53,12 @@ function objectContains(matchObject, actualObject) {
 }
 
 function eventFromKeyName(keyName) {
-  var event = {};
+  var event = {
+    shiftKey: false,
+    altKey: false,
+    metaKey: false,
+    ctrlKey: false
+  };
   var keys = keyName.split('+');
   each(function(key) {
     var keyCode = KEY_CODES[key];
