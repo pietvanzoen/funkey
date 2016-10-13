@@ -1,7 +1,7 @@
 /**
  * Funkey - Functional keyboard event handler
  * (c) 2016 Piet van Zoen - http://github.com/pietvanzoen/funkey
- * @version 1.0.0
+ * @version 1.0.1
  * @license MIT (http://www.opensource.org/licenses/mit-license.php)
  */
 ;(function() {
@@ -77,13 +77,17 @@
   var FUNKEY_ARITY = funkey.length;
 
   /**
-   * Funkey
-   * @param {KeyboardEvent} event The event to test.
-   * @param {String} keyString The keyboard string to match.
-   * @param {Function} callback Function to invoke on event/keystring match.
-   * @return {*} returns result of callback if invoked.
+   * When `keyboardEvent` matches `keyName`, `callback` is invoked with the `keyboardEvent`.
+   *
+   * `funkey` is self-currying, so it will return a curried function until all the required
+   * arguments have been given. See README.md for examples.
+   *
+   * @param {KeyboardEvent} keyboardEvent  The event to test.
+   * @param {String} keyName  The keyboard key combination to match.
+   * @param {Function} callback  Function to invoke on event/keystring match.
+   * @return {*}  Returns result of callback if invoked, otherwise undefined.
    */
-  function funkey(event, keyString, callback) {
+  function funkey(keyboardEvent, keyName, callback) {
     var args = __slice.call(arguments, 0, FUNKEY_ARITY);
     var argsLength = args.length;
     if (argsLength === FUNKEY_ARITY) {
@@ -94,8 +98,8 @@
     });
   }
 
-  var runFunkey = parseArgs(function(event, keyString, callback) {
-    if (objectContains(eventFromKeyString(keyString), event)) {
+  var runFunkey = parseArgs(function(event, keyName, callback) {
+    if (objectContains(eventFromKeyName(keyName), event)) {
       return callback.call(this, event);
     }
   });
@@ -112,9 +116,14 @@
     return true;
   }
 
-  function eventFromKeyString(keyString) {
-    var event = {};
-    var keys = keyString.split('+');
+  function eventFromKeyName(keyName) {
+    var event = {
+      shiftKey: false,
+      altKey: false,
+      metaKey: false,
+      ctrlKey: false
+    };
+    var keys = keyName.split('+');
     each(function(key) {
       var keyCode = KEY_CODES[key];
       if (keyCode) {
@@ -125,7 +134,7 @@
         event[modifier] = true;
       }
       if (!keyCode && !modifier) {
-        throw new Error('[funkey] Invalid keyString "' + keyString + '"');
+        throw new Error('[funkey] Invalid keyName "' + keyName + '"');
       }
     }, keys);
     return event;
@@ -136,13 +145,13 @@
       var args = __slice.call(arguments);
       var event = find(isObject, args);
       args.splice(args.indexOf(event), 1);
-      var keyString = args[0];
+      var keyName = args[0];
       var callback = args[1];
-      if (!isObject(event) || typeof keyString !== 'string' || typeof callback !== 'function') {
+      if (!isObject(event) || typeof keyName !== 'string' || typeof callback !== 'function') {
         throw new Error('[,funkey] Invalid call signature. \n' +
-          'funkey must be given an event object, a keyString, and a callback function.');
+          'funkey must be given an event object, a keyName, and a callback function.');
       }
-      return fn.call(this, event, keyString, callback);
+      return fn.call(this, event, keyName, callback);
     };
   }
 
