@@ -1,6 +1,4 @@
-# funkey
-
-[![CircleCI](https://img.shields.io/circleci/project/pietvanzoen/funkey/master.svg)](https://circleci.com/gh/pietvanzoen/funkey/tree/master)  [![npm](https://img.shields.io/npm/v/funkey.svg)](https://www.npmjs.com/package/funkey)
+# funkey [![CircleCI](https://img.shields.io/circleci/project/pietvanzoen/funkey/master.svg)](https://circleci.com/gh/pietvanzoen/funkey/tree/master)  [![npm](https://img.shields.io/npm/v/funkey.svg)](https://www.npmjs.com/package/funkey) [![Coverage Status](https://coveralls.io/repos/github/pietvanzoen/funkey/badge.svg?branch=master)](https://coveralls.io/github/pietvanzoen/funkey?branch=master)
 
 Funkey is a self-currying keyboard event handler. ~~You provide the keyboard event, `funkey` provides the fun.~~  _[http://bukk.it/hahano.png](http://bukk.it/hahano.png)_
 
