@@ -16,7 +16,7 @@ $ npm i --save funkey
 ## Basic Usage
 
 ```js
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
   funkey(event, 'super+enter', () => { 
     console.log('super enter pressed!');
   });
@@ -39,7 +39,7 @@ The `keyName` is made up of the modifiers and the key itself. The available modi
 Funkey is self-currying and the keyboard event argument can be given in any position when invoking `funkey`. This makes funkey pretty flexible. Here are some examples:
 
 ```js
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
   var onKeypress = funkey(event);
   onKeypress('super+enter', (e) => { /* take action! */ });
   onKeypress('super+esc', (e) => { /* escape! */ });
@@ -51,7 +51,7 @@ document.addEventListener('keypress', (event) => {
 var onEnterDoStuff = funkey('enter', () => { /* do stuff */ });
 var onEscapeDoOtherStuff = funkey('escape', () => { /* do other stuff */ });
 
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
   onEnterDoStuff(event);
   onEscapeDoOtherStuff(event);
 });
@@ -60,7 +60,7 @@ document.addEventListener('keypress', (event) => {
 ```js
 var logMessage = () => console.log('hello world!');
 var onShiftDown = funkey('shift+down');
-document.addEventListener('keypress', onShiftDown(logMessage));
+document.addEventListener('keydown', onShiftDown(logMessage));
 ```
 
 The callback context is also correctly maintained:
@@ -73,7 +73,7 @@ const controller = {
   })
 };
 
-document.addEventListener('keypress', controller.onKey.bind(controller));
+document.addEventListener('keydown', controller.onKey.bind(controller));
 ```
 
 ## Roadmap
