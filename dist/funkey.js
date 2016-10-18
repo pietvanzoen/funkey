@@ -64,17 +64,16 @@
     return codes;
   }
 
-  var KEY_CODES = initKeyCodes();
-
   var MODIFIER_KEYS = {
     shift: 'shiftKey',
     alt: 'altKey',
     super: 'metaKey',
     ctrl: 'ctrlKey'
   };
-
-  var __slice = Array.prototype.slice;
+  var KEY_CODES = funkey.KEY_CODES = initKeyCodes();
+  var KEY_NAME_DELIMITER = '+';
   var FUNKEY_ARITY = funkey.length;
+  var __slice = Array.prototype.slice;
 
   /**
    * When `keyboardEvent` matches `keyName`, `callback` is invoked with the `keyboardEvent`.
@@ -84,16 +83,15 @@
    *
    * @param {KeyboardEvent} keyboardEvent  The event to test.
    * @param {String} keyName  The keyboard key combination to match.
-   * @param {Function} callback  Function to invoke on event/keystring match.
+   * @param {Function} callback  Function to invoke on event/keyName match.
    * @return {*}  Returns result of callback if invoked, otherwise undefined.
    */
   function funkey(keyboardEvent, keyName, callback) {
     var args = __slice.call(arguments, 0, FUNKEY_ARITY);
-    var argsLength = args.length;
-    if (argsLength === FUNKEY_ARITY) {
+    if (args.length === FUNKEY_ARITY) {
       return runFunkey.apply(this, args);
     }
-    return arity(FUNKEY_ARITY - argsLength, function() {
+    return arity(FUNKEY_ARITY - args.length, function() {
       return funkey.apply(this, args.concat(__slice.call(arguments)));
     });
   }
@@ -123,7 +121,7 @@
       metaKey: false,
       ctrlKey: false
     };
-    var keys = keyName.split('+');
+    var keys = keyName.split(KEY_NAME_DELIMITER);
     each(function(key) {
       var keyCode = KEY_CODES[key];
       if (keyCode) {
@@ -189,8 +187,6 @@
         throw new Error('Arity ' + n + ' not supported.');
     }
   }
-
-  funkey.KEY_CODES = KEY_CODES;
 
   if (typeof exports === 'object') {
     module.exports = funkey;

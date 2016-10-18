@@ -1,6 +1,6 @@
 {
   "name": "funkey",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A functional keyboard event handler.",
   "main": "dist/funkey.js",
   "config": {
